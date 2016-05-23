@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>AngularJS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="dependencyM.js"></script>
+
+
+	<style type="text/css">
+		.ng-invalid.ng-dirty{
+			border-color: red;
+		}
+		.ng-valid.ng-dirty{
+			border-color: green;
+		}
+	</style>
+
+	</head>
+	<body ng-app="myApp" ng-init="numbers=[0,1,2,3,4,5,6]" class="container">
+		
+
+		{{5+3}}
+		<p>First number is {{numbers[0]}}</p>
+		<p>Second number is {{numbers[1]}}</p>
+		<p>Third number is {{numbers[2]}}</p>
+		<hr>
+		<h2>Using ng-repeat</h2>
+		<p ng-repeat="number in numbers"> Number is {{number}}</p>
+		<hr>
+		<h2>Using $scope for data from/to app.js controller</h2>
+
+		<div ng-controller="MyCtrl">
+			Actor: {{name}} <br>
+			Movie: {{movie}} <br>
+			Year: {{year}} <br>
+			Full Info: {{fullInfo()}} <br>
+			<hr>
+			<h2>ng-show</h2>
+			<button ng-click="toggleShow()" class="btn btn-default">Show/Hide</button>
+			<div ng-show="showImage">
+				<br>
+				<img ng-src="{{forrestGumpImage}}" alt="image of gump running" width="300px">
+			</div>
+			<hr>
+			<h2>ng-repeat</h2>
+			<input type="text" class="form-control" placeholder="Search for..." ng-model="search.title"><br> 
+			<table class="table table-bordered"  style="width:100%">
+				<tr>
+				    <th>Movie Title</th>
+				    <th>Actor</th>		
+				    <th>Release year</th>
+			  	</tr>
+			  	<tr ng-repeat="movie in movies | orderBy:'-year' | filter:search">
+				    <td>{{movie.title | uppercase}}</td>
+				    <td>{{movie.actor}}</td>		
+				    <td>{{movie.year}}</td>
+			  	</tr>
+			</table>
+
+			<h4>Add movie</h4>
+			<form role="form" name="movieForm" ng-submit="movieForm.$valid && addMovie()" novalidate> <!-- novalidate disables all browser validations -->
+			    <div class="form-group">
+			      <label for="title">Title</label>
+			      <input ng-model="form.title" required type="text" class="form-control" id="title" placeholder="Enter title of the movie">
+			    </div>
+			    <div class="form-group">
+			      <label for="actor">Actor</label>
+			      <input ng-model="form.actor" required type="text" class="form-control" id="actor" placeholder="Enter actor name">
+			    </div>
+			    <div class="form-group">
+			      <label for="year">Year</label>
+			      <input ng-model="form.year" required type="text" class="form-control" id="year" placeholder="Enter year">
+			    </div>
+			    <button type="submit" class="btn btn-default">Submit</button><br>
+			    <p>Form valid? {{movieForm.$valid}}</p>
+			  </form>				
+			<br><br>
+			<input type="text" class="form-control" placeholder="Enter your name" ng-model="myname"><br> 
+			<p>{{myname}}</p><br>
+
+			<hr>
+			<h2>Directives</h2>
+			<h4>using ng-include</h4>
+			<div ng-include="'moviequotes.html'"></div>
+			<br>
+<!-- 			use webserver for chrome to make this work and choos the folder with your application https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en -->
+			<h4>using own directive as element</h4>
+			<moviequotes></moviequotes>
+			<h4>using own directive as attribute</h4>
+			<div moviequotesa><div>
+			
+
+		</div>
+
+	</body>
+
+</html>
